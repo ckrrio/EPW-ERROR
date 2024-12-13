@@ -1,0 +1,1 @@
+Im trying to get the critical temperature of Mo5PB2, but I have tried a lot of suggestions in forums but I still got a lot of errors, I fix one and another one apears, and cant get the calculation done.
