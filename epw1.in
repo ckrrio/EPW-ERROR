@@ -1,0 +1,68 @@
+&inputepw
+  prefix         = 'Mo5PB2',         ! Nombre del sistema
+  outdir         = './out/'          ! Ruta de salida de los cálculos SCF
+  dvscf_dir      = '../phonon/out/save'  ! Ruta de salida de los cálculos DFPT (forzas dinámicas)
+
+  ep_coupling    = .true.            ! Activar cálculos de acoplamiento electrón-fonón
+  elph           = .true.            ! Incluir efectos fonónicos
+  epwwrite       = .true.            ! Escribir datos EPW
+  epwread        = .false.           ! No leer datos EPW previamente generados
+  etf_mem        = 0                 ! Control de memoria para la interpolación Wannier
+  vme         = 'wannier'
+
+  nbndsub        = 54            ! Número de bandas para acoplamiento e-f (ampliado para incluir estados alrededor del nivel de Fermi)
+ !bands_skipped = 'exclude_bands = 1:4'
+
+  wannierize     = .true.            ! Activar generación de funciones de Wannier
+  num_iter       = 0               ! Iteraciones para ajustar centros de Wannier
+  dis_froz_max   = 24.0              ! Rango para el nivel de Fermi, ampliado para capturar todas las bandas relevantes
+
+  ! Proyecciones ajustadas para los elementos de Mo5PB2
+  proj(1) = 'Mo:d'
+  !proj(2) = 'Mo:p'
+  !proj(3) = 'P:p'
+  !proj(4) = 'B:p'
+
+
+  iverbosity     = 2                 ! Nivel de verbosidad para depuración
+
+  fsthick        = 0.5               ! Grosor de integración alrededor del nivel de Fermi
+  degaussw       = 0.05              ! Ancho Gaussiano para interpolación de Wannier
+  degaussq       = 0.4               ! Ancho Gaussiano para fonones
+
+  !fermi_plot     = .true.            ! Graficar superficie de Fermi
+  ephwrite       = .true.            ! Escribir matriz de interacción electrón-fonón
+  eliashberg     = .true.            ! Calcular funciones Eliashberg
+
+  laniso         = .true.            ! Calcular anisotropía en interacción electrón-fonón
+  limag          = .true.            ! Permitir imaginarios en Green's functions
+  lpade          = .true.            ! Usar interpolación de Padé para \( \alpha^2F \)
+  lacon          = .true.            ! Calcular promedio angular de interacción e-f
+
+  nsiter         = 500               ! Iteraciones máximas para cálculos de anisotropía
+  conv_thr_iaxis = 1.0d-3            ! Umbral de convergencia para el eje imaginario
+  wscut          = 0.8               ! Rango de energía para análisis, ajustado según tu material
+  muc            = 0.1               ! Pseudopotencial Coulombiano ajustado para sistemas metálicos
+
+  nstemp         = 20                ! Número de temperaturas
+  temps          = 5 50              ! Rango de temperaturas para cálculos Eliashberg
+
+  ! Malla inicial de puntos k (SCF) y q (Phonon)
+  nk1            = 4                ! Coherente con tu cálculo SCF
+  nk2            = 4
+  nk3            = 4
+
+  nq1            = 4                 ! Coherente con tu cálculo de fonones
+  nq2            = 4
+  nq3            = 4
+
+  ! Malla refinada para interpolaciones más densas
+  mp_mesh_k      = .true.
+  nkf1           = 20                ! Refinado a 3x la densidad SCF
+  nkf2           = 20
+  nkf3           = 20
+
+  nqf1           = 20                ! Refinado a 3x la densidad fonónica
+  nqf2           = 20
+  nqf3           = 20
+/
